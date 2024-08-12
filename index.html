@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红包雨</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+            overflow: hidden;
+        }
+        #startButton {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #ff4d4f;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .hongbao {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #ff4d4f;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        #result {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            color: #333;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="startButton">开始</button>
+    <div id="result"></div>
+
+    <script>
+        const startButton = document.getElementById('startButton');
+        const resultDiv = document.getElementById('result');
+        let totalSum = 0;
+        let clickCount = 0;
+
+        startButton.addEventListener('click', () => {
+            startButton.style.display = 'none';
+            totalSum = 0;
+            clickCount = 0;
+            resultDiv.style.display = 'none';
+            startHongbaoRain();
+        });
+
+        function startHongbaoRain() {
+            const duration = 10000; // 红包雨持续时间 (ms)
+            const speed = 3000; // 红包下落速度 (ms)
+
+            const interval = setInterval(() => {
+                createHongbao();
+            }, 200); // 每200ms生成一个红包
+
+            setTimeout(() => {
+                clearInterval(interval);
+                setTimeout(showResult, speed); // 等待最后的红包下落完成
+            }, duration);
+        }
+
+        function createHongbao() {
+            const hongbao = document.createElement('div');
+            hongbao.className = 'hongbao';
+            const randomNumber = Math.floor(Math.random() * 10) + 1;
+            hongbao.innerText = randomNumber;
+
+            hongbao.style.left = `${Math.random() * 100}%`;
+            hongbao.style.top = `-50px`;
+
+            document.body.appendChild(hongbao);
+
+            hongbao.addEventListener('click', () => {
+                totalSum += randomNumber;
+                clickCount++;
+                hongbao.remove();
+            });
+
+            animateHongbao(hongbao);
+        }
+
+        function animateHongbao(hongbao) {
+            hongbao.animate(
+                [{ transform: `translateY(${window.innerHeight + 50}px)` }],
+                {
+                    duration: 3000, // 红包下落速度
+                    easing: 'linear',
+                    fill: 'forwards'
+                }
+            ).onfinish = () => {
+                hongbao.remove();
+            };
+        }
+
+        function showResult() {
+            resultDiv.innerText = `恭喜可得红包: ${totalSum}`;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
