@@ -111,10 +111,14 @@
     <button id="startButton">开始</button>
     <div id="result"></div>
 
-    <!-- 加载confetti.js库 -->
+    <!-- 加载 confetti.js 库 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <!-- 加载 EmailJS 库 -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 
     <script>
+        emailjs.init('2mjd0gXJUiRtDKBaQ'); // 替换为你的 EmailJS 用户 ID
+
         const startButton = document.getElementById('startButton');
         const resultDiv = document.getElementById('result');
         const backgroundVideo = document.getElementById('backgroundVideo');
@@ -183,6 +187,7 @@
             resultDiv.innerText = `恭喜可得红包: ${totalSum}`;
             resultDiv.style.display = 'block';
             triggerConfetti(); // 显示结果时触发礼花
+            sendEmail(); // 发送邮件通知
         }
 
         function triggerConfetti() {
@@ -191,6 +196,18 @@
                 particleCount: 200,
                 spread: 170,
                 origin: { y: 0.6 }
+            });
+        }
+
+        function sendEmail() {
+            emailjs.send('service_fkhp8lx', 'template_je5zk5t', {
+                to_email: 'xlying@tju.edu.cn',
+                subject: '红包雨结果',
+                message: `恭喜！您在红包雨中获得的红包总额是: ${totalSum}`
+            }).then(function(response) {
+                console.log('邮件发送成功:', response);
+            }, function(error) {
+                console.log('邮件发送失败:', error);
             });
         }
     </script>
