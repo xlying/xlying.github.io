@@ -39,15 +39,6 @@
             z-index: -1; /* 背景在最底层 */
         }
 
-        #leftCornerAnimation {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            width: 100px; /* 根据需要调整大小 */
-            height: 100px; /* 根据需要调整大小 */
-            z-index: -1; /* 动画在背景上方，但低于红包和结果 */
-        }
-
         #startButton {
             padding: 20px 40px;
             font-size: 24px;
@@ -56,7 +47,7 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            z-index: 0; /* 按钮在动画上方 */
+            z-index: 1; /* 按钮在背景上方 */
             animation: heartbeat 1.5s infinite; /* 心跳效果 */
         }
 
@@ -80,7 +71,7 @@
             line-height: 50px;
             border-radius: 50%;
             cursor: pointer;
-            z-index: 1; /* 红包在背景和动画上方 */
+            z-index: 1; /* 红包在背景上方 */
         }
 
         #result {
@@ -99,11 +90,6 @@
 
     <!-- 背景容器 -->
     <div class="background-container"></div>
-
-    <!-- 左下角动画 -->
-    <div id="leftCornerAnimation">
-        <video src="animation.mp4" autoplay loop muted playsinline width="100" height="100"></video>
-    </div>
 
     <!-- 红包雨部分 -->
     <button id="startButton">开始</button>
