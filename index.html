@@ -17,29 +17,30 @@
             height: 100%;
             overflow: hidden;
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             background-color: #f2f2f2;
             position: relative;
         }
 
-        /* 背景样式 */
+        /* 背景容器样式 */
         .background-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('background.jpg'); /* 确保文件名和路径正确 */
-            background-size: cover; /* 自动缩放以覆盖背景 */
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.5; /* 背景透明度 */
-            z-index: -1; /* 背景在最底层 */
+            background-image: url('image1.jpg'); /* 只使用一张背景图片 */
+            background-size: cover; /* 背景图片根据屏幕大小自动缩放 */
+            background-position: center; /* 背景图片居中显示 */
+            background-repeat: no-repeat; /* 背景图片不重复 */
+            opacity: 0.5; /* 调整背景透明度 */
+            z-index: 0;
         }
 
         #startButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             padding: 20px 40px;
             font-size: 24px;
             background-color: #ff4d4f;
@@ -47,7 +48,7 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            z-index: 1; /* 按钮在背景上方 */
+            z-index: 1;
             animation: heartbeat 1.5s infinite; /* 心跳效果 */
         }
 
@@ -71,7 +72,7 @@
             line-height: 50px;
             border-radius: 50%;
             cursor: pointer;
-            z-index: 1; /* 红包在背景上方 */
+            z-index: 1;
         }
 
         #result {
@@ -82,7 +83,7 @@
             font-size: 36px;
             color: #333;
             display: none;
-            z-index: 2; /* 结果在红包上方 */
+            z-index: 1;
         }
     </style>
 </head>
