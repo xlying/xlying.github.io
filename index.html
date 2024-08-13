@@ -17,23 +17,18 @@
             height: 100%;
             overflow: hidden;
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
             position: relative;
         }
 
-        /* 背景容器样式 */
-        .background-container {
+        /* 背景视频样式 */
+        .background-video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('background.jpg'); /* 只使用一张背景图片 */
-            background-size: cover; /* 背景图片根据屏幕大小自动缩放 */
-            background-position: center; /* 背景图片居中显示 */
-            background-repeat: no-repeat; /* 背景图片不重复 */
-            opacity: 0.9; /* 调整背景透明度 */
-            z-index: 0;
+            object-fit: cover; /* 确保视频覆盖整个背景 */
+            z-index: -1; /* 确保视频在所有内容后面 */
         }
 
         #startButton {
@@ -85,32 +80,19 @@
             display: none;
             z-index: 1;
         }
-
-        /* 左下角动画样式 */
-        #animation {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            width: 100px; /* 根据实际动画尺寸调整 */
-            height: 100px; /* 根据实际动画尺寸调整 */
-            z-index: 2; /* 确保动画在其他内容之上 */
-        }
     </style>
 </head>
 <body>
 
-    <!-- 背景容器 -->
-    <div class="background-container"></div>
+    <!-- 背景视频 -->
+    <video class="background-video" autoplay muted loop>
+        <source src="background.mp4" type="video/mp4">
+        您的浏览器不支持视频标签。
+    </video>
 
     <!-- 红包雨部分 -->
     <button id="startButton">开始</button>
     <div id="result"></div>
-
-    <!-- 左下角动画 -->
-    <video id="animation" autoplay loop muted>
-        <source src="animation.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
 
     <!-- 加载confetti.js库 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
