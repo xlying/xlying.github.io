@@ -29,7 +29,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -1; /* 确保背景视频在所有内容后面 */
+            z-index: -2; /* 背景视频在最底层 */
         }
 
         #startButton {
@@ -44,7 +44,7 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            z-index: 1;
+            z-index: 2;
             animation: heartbeat 1.5s infinite;
         }
 
@@ -68,7 +68,7 @@
             line-height: 50px;
             border-radius: 50%;
             cursor: pointer;
-            z-index: 1;
+            z-index: 2;
         }
 
         #result {
@@ -79,16 +79,16 @@
             font-size: 36px;
             color: #333;
             display: none;
-            z-index: 1;
+            z-index: 2;
         }
 
         /* 动画样式 */
         .animation-container {
             position: absolute;
             bottom: 10px;
-            left: 20px; /* 稍微靠中间 */
-            width: 30px; /* 控制动画大小 */
-            z-index: 2;
+            left: 20px;
+            width: 100px;
+            z-index: 0; /* 动画在背景视频上，但在其他内容下 */
         }
     </style>
 </head>
@@ -100,10 +100,6 @@
         Your browser does not support the video tag.
     </video>
 
-    <!-- 红包雨部分 -->
-    <button id="startButton">开始</button>
-    <div id="result"></div>
-
     <!-- 动画部分 -->
     <div class="animation-container">
         <video autoplay loop muted>
@@ -111,6 +107,10 @@
             Your browser does not support the video tag.
         </video>
     </div>
+
+    <!-- 红包雨部分 -->
+    <button id="startButton">开始</button>
+    <div id="result"></div>
 
     <!-- 加载confetti.js库 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
