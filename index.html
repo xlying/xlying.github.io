@@ -17,6 +17,7 @@
             height: 100%;
             overflow: hidden;
             font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
             position: relative;
         }
 
@@ -27,8 +28,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 确保视频覆盖整个背景 */
-            z-index: -1; /* 确保视频在所有内容后面 */
+            object-fit: cover; /* 视频覆盖整个背景 */
+            z-index: 0;
         }
 
         #startButton {
@@ -80,24 +81,44 @@
             display: none;
             z-index: 1;
         }
+
+        /* 动画样式 */
+        .animation-container {
+            position: absolute;
+            bottom: 10%;
+            left: 20%; /* 动画稍微靠中间 */
+            width: 150px; /* 调整大小 */
+            z-index: 2;
+        }
     </style>
 </head>
 <body>
 
     <!-- 背景视频 -->
     <video class="background-video" autoplay muted loop>
-        <source src="background.mp4" type="video/mp4">
-        您的浏览器不支持视频标签。
+        <source src="background-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
     </video>
 
     <!-- 红包雨部分 -->
     <button id="startButton">开始</button>
     <div id="result"></div>
 
+    <!-- 动画部分 -->
+    <div class="animation-container">
+        <video autoplay loop muted>
+            <source src="animation.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
     <!-- 加载confetti.js库 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
     <script>
+        // 背景视频音频取消静音
+        document.querySelector('.background-video').muted = false;
+
         // 红包雨逻辑
         const startButton = document.getElementById('startButton');
         const resultDiv = document.getElementById('result');
