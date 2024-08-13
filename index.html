@@ -96,13 +96,13 @@
 <body>
 
     <!-- 背景视频 -->
-    <video id="backgroundVideo" class="background-video" loop>
+    <video id="backgroundVideo" class="background-video" loop muted>
         <source src="background.mp4" type="video/mp4">
         您的浏览器不支持视频标签。
     </video>
 
     <!-- 动图 -->
-    <video class="animation-video" autoplay loop>
+    <video id="animationVideo" class="animation-video" loop muted>
         <source src="animation.mp4" type="video/mp4">
         您的浏览器不支持视频标签。
     </video>
@@ -118,12 +118,14 @@
         const startButton = document.getElementById('startButton');
         const resultDiv = document.getElementById('result');
         const backgroundVideo = document.getElementById('backgroundVideo');
+        const animationVideo = document.getElementById('animationVideo');
         let totalSum = 0;
         let clickCount = 0;
 
         startButton.addEventListener('click', () => {
             startButton.style.display = 'none';
             backgroundVideo.play(); // 在用户点击后播放背景视频
+            animationVideo.play(); // 在用户点击后播放动图
             totalSum = 0;
             clickCount = 0;
             resultDiv.style.display = 'none';
