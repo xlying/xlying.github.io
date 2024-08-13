@@ -7,7 +7,7 @@
     <style>
         /* 禁用选择高亮效果 */
         * {
-            user-select: none; /* 禁止页面元素被选中 */
+            user-select: none;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -17,30 +17,39 @@
             height: 100%;
             overflow: hidden;
             font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background-color: #f2f2f2;
             position: relative;
         }
 
-        /* 背景容器样式 */
+        /* 左下角动画样式 */
+        #leftCornerAnimation {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 100px; /* 根据需要调整大小 */
+            height: 100px; /* 根据需要调整大小 */
+            z-index: 10;
+        }
+
+        /* 背景图片 */
         .background-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('image18.jpg'); /* 只使用一张背景图片 */
-            background-size: cover; /* 背景图片根据屏幕大小自动缩放 */
-            background-position: center; /* 背景图片居中显示 */
-            background-repeat: no-repeat; /* 背景图片不重复 */
-            opacity: 0.5; /* 调整背景透明度 */
-            z-index: 0;
+            background-image: url('background.jpg'); /* 使用单张背景图片 */
+            background-size: cover; /* 根据设备大小自动缩放 */
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.5;
+            z-index: -1;
         }
 
         #startButton {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             padding: 20px 40px;
             font-size: 24px;
             background-color: #ff4d4f;
@@ -49,7 +58,7 @@
             border-radius: 10px;
             cursor: pointer;
             z-index: 1;
-            animation: heartbeat 1.5s infinite; /* 心跳效果 */
+            animation: heartbeat 1.5s infinite;
         }
 
         @keyframes heartbeat {
@@ -66,7 +75,7 @@
             width: 50px;
             height: 50px;
             background-color: #ff4d4f;
-            color: black; /* 设置数字颜色为黑色 */
+            color: black;
             font-size: 20px;
             text-align: center;
             line-height: 50px;
@@ -91,6 +100,11 @@
 
     <!-- 背景容器 -->
     <div class="background-container"></div>
+
+    <!-- 左下角动画 -->
+    <div id="leftCornerAnimation">
+        <video src="animation.mp4" autoplay loop muted playsinline width="100" height="100"></video>
+    </div>
 
     <!-- 红包雨部分 -->
     <button id="startButton">开始</button>
@@ -131,7 +145,7 @@
         function createHongbao() {
             const hongbao = document.createElement('div');
             hongbao.className = 'hongbao';
-            const randomNumber = Math.floor(Math.random() * 5) + 1;
+            const randomNumber = Math.floor(Math.random() * 10) + 1;
 
             hongbao.style.left = `${Math.random() * 100}%`;
             hongbao.style.top = `-50px`;
