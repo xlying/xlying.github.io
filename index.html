@@ -7,7 +7,7 @@
     <style>
         /* 禁用选择高亮效果 */
         * {
-            user-select: none; /* 禁止页面元素被选中 */
+            user-select: none;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -17,8 +17,8 @@
             height: 100%;
             overflow: hidden;
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
             position: relative;
+            background-color: #f2f2f2;
         }
 
         /* 背景视频样式 */
@@ -28,8 +28,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 视频覆盖整个背景 */
-            z-index: 0;
+            object-fit: cover;
+            z-index: -1; /* 确保背景视频在所有内容后面 */
         }
 
         #startButton {
@@ -45,7 +45,7 @@
             border-radius: 10px;
             cursor: pointer;
             z-index: 1;
-            animation: heartbeat 1.5s infinite; /* 心跳效果 */
+            animation: heartbeat 1.5s infinite;
         }
 
         @keyframes heartbeat {
@@ -62,7 +62,7 @@
             width: 50px;
             height: 50px;
             background-color: #ff4d4f;
-            color: black; /* 设置数字颜色为黑色 */
+            color: black;
             font-size: 20px;
             text-align: center;
             line-height: 50px;
@@ -85,9 +85,9 @@
         /* 动画样式 */
         .animation-container {
             position: absolute;
-            bottom: 10%;
-            left: 20%; /* 动画稍微靠中间 */
-            width: 150px; /* 调整大小 */
+            bottom: 10px;
+            left: 20px; /* 稍微靠中间 */
+            width: 100px; /* 控制动画大小 */
             z-index: 2;
         }
     </style>
@@ -95,7 +95,7 @@
 <body>
 
     <!-- 背景视频 -->
-    <video class="background-video" autoplay muted loop>
+    <video class="background-video" autoplay loop>
         <source src="background.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
@@ -116,9 +116,6 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
     <script>
-        // 背景视频音频取消静音
-        document.querySelector('.background-video').muted = false;
-
         // 红包雨逻辑
         const startButton = document.getElementById('startButton');
         const resultDiv = document.getElementById('result');
@@ -134,16 +131,16 @@
         });
 
         function startHongbaoRain() {
-            const duration = 10000; // 红包雨持续时间 (ms)
-            const speed = 3000; // 红包下落速度 (ms)
+            const duration = 10000;
+            const speed = 3000;
 
             const interval = setInterval(() => {
                 createHongbao();
-            }, 200); // 每200ms生成一个红包
+            }, 200);
 
             setTimeout(() => {
                 clearInterval(interval);
-                setTimeout(showResult, speed); // 等待最后的红包下落完成
+                setTimeout(showResult, speed);
             }, duration);
         }
 
@@ -156,14 +153,13 @@
             hongbao.style.top = `-50px`;
 
             hongbao.addEventListener('click', () => {
-                hongbao.innerText = randomNumber; // 点击后显示数字
+                hongbao.innerText = randomNumber;
                 totalSum += randomNumber;
                 clickCount++;
-                setTimeout(() => hongbao.remove(), 500); // 显示数字后500ms再移除
+                setTimeout(() => hongbao.remove(), 500);
             });
 
             document.body.appendChild(hongbao);
-
             animateHongbao(hongbao);
         }
 
@@ -171,23 +167,22 @@
             hongbao.animate(
                 [{ transform: `translateY(${window.innerHeight + 50}px)` }],
                 {
-                    duration: 3000, // 红包下落速度
+                    duration: 3000,
                     easing: 'linear',
                     fill: 'forwards'
                 }
             ).onfinish = () => {
-                if (!hongbao.innerText) hongbao.remove(); // 如果没被点击就移除
+                if (!hongbao.innerText) hongbao.remove();
             };
         }
 
         function showResult() {
             resultDiv.innerText = `恭喜可得红包: ${totalSum}`;
             resultDiv.style.display = 'block';
-            triggerConfetti(); // 显示结果时触发礼花
+            triggerConfetti();
         }
 
         function triggerConfetti() {
-            // 配置礼花效果
             confetti({
                 particleCount: 200,
                 spread: 70,
