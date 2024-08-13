@@ -5,56 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>红包雨</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f2f2f2;
-            overflow: hidden;
-        }
-        #startButton {
-            padding: 20px 40px;
-            font-size: 24px;
-            background-color: #ff4d4f;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        .hongbao {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background-color: #ff4d4f;
-            color: white;
-            font-size: 20px;
-            text-align: center;
-            line-height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        #result {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 36px;
-            color: #333;
-            display: none;
-        }
-    </style>
-
-    <title>循环背景</title>
-    <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden;
             font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f2f2f2;
         }
 
         .background-container {
@@ -71,6 +31,7 @@
             background-position: center;
             transition: opacity 1s ease-in-out;
             opacity: 0;
+            z-index: -1; /* 确保背景层在红包之下 */
         }
 
         .background-container.active {
@@ -144,15 +105,105 @@
         .background-3 .row img {
             width: 32%;
         }
-    </style>    
-    
+
+        #startButton {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #ff4d4f;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .hongbao {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #ff4d4f;
+            color: black; /* 设置数字颜色为黑色 */
+            font-size: 20px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        #result {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            color: #333;
+            display: none;
+            z-index: 1;
+        }
+    </style>
 </head>
 <body>
 
+    <!-- 背景容器 -->
+    <div class="background-container background-1 active">
+        <div class="row">
+            <img src="image1.jpg" alt="Image 1">
+        </div>
+        <div class="row">
+            <img src="image2.jpg" alt="Image 2">
+            <img src="image3.jpg" alt="Image 3">
+        </div>
+        <div class="row">
+            <img src="image4.jpg" alt="Image 4">
+            <img src="image5.jpg" alt="Image 5">
+        </div>
+    </div>
+
+    <div class="background-container background-2">
+        <div class="row">
+            <img src="image6.jpg" alt="Image 6">
+            <img src="image7.jpg" alt="Image 7">
+            <img src="image8.jpg" alt="Image 8">
+        </div>
+        <div class="row">
+            <img src="image9.jpg" alt="Image 9">
+            <img src="image10.jpg" alt="Image 10">
+            <img src="image11.jpg" alt="Image 11">
+        </div>
+    </div>
+
+    <div class="background-container background-3">
+        <div class="row">
+            <img src="image12.jpg" alt="Image 12">
+            <img src="image13.jpg" alt="Image 13">
+        </div>
+        <div class="row">
+            <img src="image14.jpg" alt="Image 14">
+        </div>
+        <div class="row">
+            <img src="image15.jpg" alt="Image 15">
+            <img src="image16.jpg" alt="Image 16">
+            <img src="image17.jpg" alt="Image 17">
+        </div>
+    </div>
+
+    <!-- 红包雨部分 -->
     <button id="startButton">开始</button>
     <div id="result"></div>
 
     <script>
+        // 背景图片切换逻辑
+        let backgrounds = document.querySelectorAll('.background-container');
+        let currentIndex = 0;
+
+        setInterval(() => {
+            backgrounds[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % backgrounds.length;
+            backgrounds[currentIndex].classList.add('active');
+        }, 5000); // 每5秒切换一次
+
+        // 红包雨逻辑
         const startButton = document.getElementById('startButton');
         const resultDiv = document.getElementById('result');
         let totalSum = 0;
@@ -184,18 +235,18 @@
             const hongbao = document.createElement('div');
             hongbao.className = 'hongbao';
             const randomNumber = Math.floor(Math.random() * 10) + 1;
-            hongbao.innerText = randomNumber;
 
             hongbao.style.left = `${Math.random() * 100}%`;
             hongbao.style.top = `-50px`;
 
-            document.body.appendChild(hongbao);
-
             hongbao.addEventListener('click', () => {
+                hongbao.innerText = randomNumber; // 点击后显示数字
                 totalSum += randomNumber;
                 clickCount++;
-                hongbao.remove();
+                setTimeout(() => hongbao.remove(), 500); // 显示数字后500ms再移除
             });
+
+            document.body.appendChild(hongbao);
 
             animateHongbao(hongbao);
         }
@@ -209,7 +260,7 @@
                     fill: 'forwards'
                 }
             ).onfinish = () => {
-                hongbao.remove();
+                if (!hongbao.innerText) hongbao.remove(); // 如果没被点击就移除
             };
         }
 
@@ -219,59 +270,5 @@
         }
     </script>
 
-<div class="background-container background-1 active">
-    <div class="row">
-        <img src="image1.jpg" alt="Image 1">
-    </div>
-    <div class="row">
-        <img src="image2.jpg" alt="Image 2">
-        <img src="image3.jpg" alt="Image 3">
-    </div>
-    <div class="row">
-        <img src="image4.jpg" alt="Image 4">
-        <img src="image5.jpg" alt="Image 5">
-    </div>
-</div>
-
-<div class="background-container background-2">
-    <div class="row">
-        <img src="image6.jpg" alt="Image 6">
-        <img src="image7.jpg" alt="Image 7">
-        <img src="image8.jpg" alt="Image 8">
-    </div>
-    <div class="row">
-        <img src="image9.jpg" alt="Image 9">
-        <img src="image10.jpg" alt="Image 10">
-        <img src="image11.jpg" alt="Image 11">
-    </div>
-</div>
-
-<div class="background-container background-3">
-    <div class="row">
-        <img src="image12.jpg" alt="Image 12">
-        <img src="image13.jpg" alt="Image 13">
-    </div>
-    <div class="row">
-        <img src="image14.jpg" alt="Image 14">
-    </div>
-    <div class="row">
-        <img src="image15.jpg" alt="Image 15">
-        <img src="image16.jpg" alt="Image 16">
-        <img src="image17.jpg" alt="Image 17">
-    </div>
-</div>
-
-<script>
-    let backgrounds = document.querySelectorAll('.background-container');
-    let currentIndex = 0;
-
-    setInterval(() => {
-        backgrounds[currentIndex].classList.remove('active');
-        currentIndex = (currentIndex + 1) % backgrounds.length;
-        backgrounds[currentIndex].classList.add('active');
-    }, 5000); // 每5秒切换一次
-</script>
-
-    
 </body>
 </html>
