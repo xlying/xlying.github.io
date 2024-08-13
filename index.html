@@ -17,9 +17,6 @@
             height: 100%;
             overflow: hidden;
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             background-color: #f2f2f2;
             position: relative;
         }
@@ -35,12 +32,15 @@
             background-size: cover; /* 背景图片根据屏幕大小自动缩放 */
             background-position: center; /* 背景图片居中显示 */
             background-repeat: no-repeat; /* 背景图片不重复 */
-            transition: opacity 1s ease-in-out;
             opacity: 0.5; /* 调整背景透明度 */
-            z-index: -1;
+            z-index: 0;
         }
 
         #startButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             padding: 20px 40px;
             font-size: 24px;
             background-color: #ff4d4f;
