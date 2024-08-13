@@ -28,7 +28,18 @@
             width: 100%;
             height: 100%;
             object-fit: cover; /* 确保视频覆盖整个背景 */
-            z-index: -1; /* 确保视频在所有内容后面 */
+            z-index: -2; /* 确保视频在所有内容后面 */
+        }
+
+        /* 动图样式 */
+        .animation-video {
+            position: absolute;
+            bottom: 20px; /* 靠近底部 */
+            left: 20px; /* 靠近左侧 */
+            width: 100px; /* 根据需要调整宽度 */
+            height: 100px; /* 根据需要调整高度 */
+            object-fit: cover;
+            z-index: -1; /* 动图在背景视频上方，但在其他内容下方 */
         }
 
         #startButton {
@@ -87,6 +98,12 @@
     <!-- 背景视频 -->
     <video id="backgroundVideo" class="background-video" loop>
         <source src="background.mp4" type="video/mp4">
+        您的浏览器不支持视频标签。
+    </video>
+
+    <!-- 动图 -->
+    <video class="animation-video" autoplay loop>
+        <source src="animation.mp4" type="video/mp4">
         您的浏览器不支持视频标签。
     </video>
 
