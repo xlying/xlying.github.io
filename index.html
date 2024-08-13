@@ -97,6 +97,9 @@
     <button id="startButton">开始</button>
     <div id="result"></div>
 
+    <!-- 加载confetti.js库 -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
     <script>
         // 背景图片切换逻辑
         let backgrounds = document.querySelectorAll('.background-container');
@@ -172,6 +175,16 @@
         function showResult() {
             resultDiv.innerText = `恭喜可得红包: ${totalSum}`;
             resultDiv.style.display = 'block';
+            triggerConfetti(); // 显示结果时触发礼花
+        }
+
+        function triggerConfetti() {
+            // 配置礼花效果
+            confetti({
+                particleCount: 200,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
         }
     </script>
 
