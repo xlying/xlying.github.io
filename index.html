@@ -85,6 +85,16 @@
             display: none;
             z-index: 1;
         }
+
+        /* 左下角动画样式 */
+        #animation {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 100px; /* 根据实际动画尺寸调整 */
+            height: 100px; /* 根据实际动画尺寸调整 */
+            z-index: 2; /* 确保动画在其他内容之上 */
+        }
     </style>
 </head>
 <body>
@@ -95,6 +105,12 @@
     <!-- 红包雨部分 -->
     <button id="startButton">开始</button>
     <div id="result"></div>
+
+    <!-- 左下角动画 -->
+    <video id="animation" autoplay loop muted>
+        <source src="animation.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
     <!-- 加载confetti.js库 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
