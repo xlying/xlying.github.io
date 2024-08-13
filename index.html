@@ -85,7 +85,7 @@
 <body>
 
     <!-- 背景视频 -->
-    <video class="background-video" autoplay muted loop>
+    <video id="backgroundVideo" class="background-video" loop>
         <source src="background.mp4" type="video/mp4">
         您的浏览器不支持视频标签。
     </video>
@@ -98,14 +98,15 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
     <script>
-        // 红包雨逻辑
         const startButton = document.getElementById('startButton');
         const resultDiv = document.getElementById('result');
+        const backgroundVideo = document.getElementById('backgroundVideo');
         let totalSum = 0;
         let clickCount = 0;
 
         startButton.addEventListener('click', () => {
             startButton.style.display = 'none';
+            backgroundVideo.play(); // 在用户点击后播放背景视频
             totalSum = 0;
             clickCount = 0;
             resultDiv.style.display = 'none';
