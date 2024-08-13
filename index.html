@@ -36,18 +36,15 @@
             justify-content: center;
             align-items: center;
             transition: opacity 1s ease-in-out;
-            opacity: 0;
+            opacity: 1; /* 确保背景图片默认可见 */
             z-index: -1;
-        }
-
-        .background-container.active {
-            opacity: 0.5; /* 调整背景透明度 */
         }
 
         .background-container img {
             flex: 1 0 33.33%; /* 让图片自动填满容器并保持比例 */
             height: 50%; /* 每张图片占据背景的1/2高度 */
             object-fit: cover; /* 保持图片的比例，并填满区域 */
+            filter: brightness(1.2); /* 提高图片亮度 */
         }
 
         #startButton {
