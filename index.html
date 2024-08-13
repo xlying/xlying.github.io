@@ -8,11 +8,12 @@
         /* 禁用选择高亮效果 */
         * {
             user-select: none; /* 禁止页面元素被选中 */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
             height: 100%;
             overflow: hidden;
             font-family: Arial, sans-serif;
@@ -20,8 +21,10 @@
             justify-content: center;
             align-items: center;
             background-color: #f2f2f2;
+            position: relative;
         }
 
+        /* 背景容器样式 */
         .background-container {
             position: absolute;
             top: 0;
@@ -32,8 +35,6 @@
             flex-wrap: wrap; /* 让图片在背景中自动换行 */
             justify-content: center;
             align-items: center;
-            background-size: cover;
-            background-position: center;
             transition: opacity 1s ease-in-out;
             opacity: 0;
             z-index: -1;
@@ -44,7 +45,7 @@
         }
 
         .background-container img {
-            width: 33.33%; /* 每张图片占据背景的1/3宽度 */
+            flex: 1 0 33.33%; /* 让图片自动填满容器并保持比例 */
             height: 50%; /* 每张图片占据背景的1/2高度 */
             object-fit: cover; /* 保持图片的比例，并填满区域 */
         }
@@ -135,6 +136,7 @@
         let backgrounds = document.querySelectorAll('.background-container');
         let currentIndex = 0;
 
+        // 背景图片自动切换
         setInterval(() => {
             backgrounds[currentIndex].classList.remove('active');
             currentIndex = (currentIndex + 1) % backgrounds.length;
