@@ -7,7 +7,7 @@
     <style>
         /* 禁用选择高亮效果 */
         * {
-            user-select: none;
+            user-select: none; /* 禁止页面元素被选中 */
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -24,6 +24,20 @@
             position: relative;
         }
 
+        /* 背景样式 */
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('background.jpg'); /* 单张背景图片 */
+            background-size: cover; /* 自动缩放以覆盖背景 */
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1; /* 背景在所有内容下 */
+        }
+
         /* 左下角动画样式 */
         #leftCornerAnimation {
             position: fixed;
@@ -31,22 +45,7 @@
             left: 10px;
             width: 100px; /* 根据需要调整大小 */
             height: 100px; /* 根据需要调整大小 */
-            z-index: 10;
-        }
-
-        /* 背景图片 */
-        .background-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('background.jpg'); /* 使用单张背景图片 */
-            background-size: cover; /* 根据设备大小自动缩放 */
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.5;
-            z-index: -1;
+            z-index: 10; /* 确保动画在上层 */
         }
 
         #startButton {
@@ -58,7 +57,7 @@
             border-radius: 10px;
             cursor: pointer;
             z-index: 1;
-            animation: heartbeat 1.5s infinite;
+            animation: heartbeat 1.5s infinite; /* 心跳效果 */
         }
 
         @keyframes heartbeat {
@@ -75,13 +74,13 @@
             width: 50px;
             height: 50px;
             background-color: #ff4d4f;
-            color: black;
+            color: black; /* 设置数字颜色为黑色 */
             font-size: 20px;
             text-align: center;
             line-height: 50px;
             border-radius: 50%;
             cursor: pointer;
-            z-index: 1;
+            z-index: 1; /* 红包在动画下方 */
         }
 
         #result {
@@ -92,7 +91,7 @@
             font-size: 36px;
             color: #333;
             display: none;
-            z-index: 1;
+            z-index: 1; /* 结果在红包上方 */
         }
     </style>
 </head>
