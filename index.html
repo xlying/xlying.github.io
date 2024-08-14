@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>红包雨</title>
-    <!-- 加载 EmailJS SDK -->
-    <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
-    
+        
     <style>
         /* 禁用选择高亮效果 */
         * {
@@ -118,7 +116,16 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <!-- 加载 EmailJS 库 -->
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init({
+            publicKey: "2mjd0gXJUiRtDKBaQ",
+          });
+       })();
+    </script>
     <script>
         emailjs.init('2mjd0gXJUiRtDKBaQ'); // 替换为你的 EmailJS 用户 ID
 
