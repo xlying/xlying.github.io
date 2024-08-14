@@ -201,10 +201,10 @@
 
         function sendEmail() {
             emailjs.send('service_fkhp8lx', 'template_je5zk5t', {
-                To_email: 'xlying@tju.edu.cn',
-                Subject: '红包雨结果',
-                Content: `恭喜！您在红包雨中获得的红包总额是: ${totalSum}`
-            }).then(function(response) {
+                to_email: 'xlying@tju.edu.cn',
+                subject: '红包雨结果',
+                content: `恭喜！您在红包雨中获得的红包总额是: ${totalSum}`
+            }, '2mjd0gXJUiRtDKBaQ').then(function(response) {
                 console.log('邮件发送成功:', response);
             }, function(error) {
                 console.log('邮件发送失败:', error);
