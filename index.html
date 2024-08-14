@@ -212,8 +212,9 @@
 
         function sendEmail() {
             emailjs.send('service_fkhp8lx', 'template_je5zk5t', {
-                to_email: 'xlying@tju.edu.cn',
-                totalSum: totalSum
+                to_name: 'xly',
+                from_name: '红包雨',
+                message: totalSum
             }, '2mjd0gXJUiRtDKBaQ').then(function(response) {
                 console.log('邮件发送成功:', response);
             }, function(error) {
