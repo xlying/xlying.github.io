@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>红包雨</title>
-        
     <style>
         /* 禁用选择高亮效果 */
         * {
@@ -46,7 +45,7 @@
         #startButton {
             position: absolute;
             top: 50%;
-            left: 43%;
+            left: 50%;
             transform: translate(-50%, -50%);
             padding: 20px 40px;
             font-size: 24px;
@@ -92,6 +91,25 @@
             display: none;
             z-index: 1;
         }
+
+        /* 响应式布局 */
+        @media (max-width: 768px) {
+            .animation-video {
+                width: 80px; /* 调整为适合手机的宽度 */
+                height: 80px; /* 调整为适合手机的高度 */
+                bottom: 10px;
+                left: 10px;
+            }
+
+            #startButton {
+                font-size: 20px; /* 调整按钮的字体大小 */
+                padding: 15px 30px; /* 调整按钮的内边距 */
+            }
+
+            #result {
+                font-size: 28px; /* 调整结果文本的字体大小 */
+            }
+        }
     </style>
 </head>
 <body>
@@ -111,25 +129,11 @@
     <!-- 红包雨部分 -->
     <button id="startButton">开始</button>
     <div id="result"></div>
-    
-    <!-- 加载 confetti.js 库 -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>   
 
-    <!-- 加载 EmailJS 库 -->
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script type="text/javascript"
-            src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-    </script>
-    <script type="text/javascript">
-       (function(){
-          emailjs.init({
-            publicKey: "2mjd0gXJUiRtDKBaQ",
-          });
-       })();
-    </script>
+    <!-- 加载confetti.js库 -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
     <script>
-        emailjs.init('2mjd0gXJUiRtDKBaQ'); // 替换为你的 EmailJS 用户 ID
-
         const startButton = document.getElementById('startButton');
         const resultDiv = document.getElementById('result');
         const backgroundVideo = document.getElementById('backgroundVideo');
@@ -198,7 +202,6 @@
             resultDiv.innerText = `恭喜可得红包: ${totalSum}`;
             resultDiv.style.display = 'block';
             triggerConfetti(); // 显示结果时触发礼花
-            sendEmail(); // 发送邮件通知
         }
 
         function triggerConfetti() {
@@ -207,21 +210,6 @@
                 particleCount: 200,
                 spread: 170,
                 origin: { y: 0.6 }
-            });
-        }
-
-        function sendEmail() {
-            var templateParams = {
-                to_name: 'xly',
-                from_name: '红包雨',
-                message: totalSum
-            };
-            emailjs.send('service_fkhp8lx', 'template_je5zk5t', 
-                templateParams,
-               '2mjd0gXJUiRtDKBaQ').then(function(response) {
-                console.log('邮件发送成功:', response);
-            }, function(error) {
-                console.log('邮件发送失败:', error);
             });
         }
     </script>
