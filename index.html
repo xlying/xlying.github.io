@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>红包雨</title>
+        
     <style>
         /* 禁用选择高亮效果 */
         * {
@@ -39,7 +40,8 @@
             width: 100px; /* 根据需要调整宽度 */
             height: 100px; /* 根据需要调整高度 */
             object-fit: contain; /* 保持动图的原始比例和大小 */
-            z-index: -1; /* 动图在背景视频上方，但在其他内容下方 */
+            z-index: 1; /* 动图在背景视频上方，但在其他内容下方 */
+            pointer-events: none; /* 确保动图不影响用户点击 */
         }
 
         #startButton {
@@ -54,7 +56,7 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            z-index: 1;
+            z-index: 2; /* 确保按钮在所有内容上方 */
             animation: heartbeat 1.5s infinite; /* 心跳效果 */
         }
 
@@ -89,9 +91,9 @@
             font-size: 36px;
             color: red;
             display: none;
-            z-index: 1;
+            z-index: 2; /* 确保结果文本在所有内容上方 */
         }
-
+        
         /* 响应式布局 */
         @media (max-width: 768px) {
             .animation-video {
@@ -129,10 +131,19 @@
     <!-- 红包雨部分 -->
     <button id="startButton">开始</button>
     <div id="result"></div>
-
-    <!-- 加载confetti.js库 -->
+    
+    <!-- 加载 confetti.js 库 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
+    <!-- 加载 EmailJS 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <script type="text/javascript">
+       (function(){
+          emailjs.init('2mjd0gXJUiRtDKBaQ'); // 替换为你的 EmailJS 用户 ID
+       })();
+    </script>
+    
     <script>
         const startButton = document.getElementById('startButton');
         const resultDiv = document.getElementById('result');
@@ -202,6 +213,7 @@
             resultDiv.innerText = `恭喜可得红包: ${totalSum}`;
             resultDiv.style.display = 'block';
             triggerConfetti(); // 显示结果时触发礼花
+            sendEmail(); // 发送邮件通知
         }
 
         function triggerConfetti() {
@@ -210,6 +222,21 @@
                 particleCount: 200,
                 spread: 170,
                 origin: { y: 0.6 }
+            });
+        }
+
+        function sendEmail() {
+            const templateParams = {
+                to_name: 'xly',
+                from_name: '红包雨',
+                message: `红包总数: ${totalSum}` // 修改为带有红包总数的消息
+            };
+
+            emailjs.send('service_fkhp8lx', 'template_je5zk5t', templateParams)
+            .then(function(response) {
+                console.log('邮件发送成功:', response);
+            }, function(error) {
+                console.log('邮件发送失败:', error);
             });
         }
     </script>
