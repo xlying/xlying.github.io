@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>红包雨</title>
-        
+    
     <style>
         /* 禁用选择高亮效果 */
         * {
@@ -40,14 +40,13 @@
             width: 100px; /* 根据需要调整宽度 */
             height: 100px; /* 根据需要调整高度 */
             object-fit: contain; /* 保持动图的原始比例和大小 */
-            z-index: 1; /* 动图在背景视频上方，但在其他内容下方 */
-            pointer-events: none; /* 确保动图不影响用户点击 */
+            z-index: -1; /* 动图在背景视频上方，但在其他内容下方 */
         }
 
         #startButton {
             position: absolute;
             top: 50%;
-            left: 50%;
+            left: 43%;
             transform: translate(-50%, -50%);
             padding: 20px 40px;
             font-size: 24px;
@@ -56,7 +55,7 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            z-index: 2; /* 确保按钮在所有内容上方 */
+            z-index: 1;
             animation: heartbeat 1.5s infinite; /* 心跳效果 */
         }
 
@@ -91,25 +90,25 @@
             font-size: 36px;
             color: red;
             display: none;
-            z-index: 2; /* 确保结果文本在所有内容上方 */
+            z-index: 1;
         }
-        
-        /* 响应式布局 */
+
+        /* 媒体查询：适应手机屏幕 */
         @media (max-width: 768px) {
             .animation-video {
-                width: 80px; /* 调整为适合手机的宽度 */
-                height: 80px; /* 调整为适合手机的高度 */
-                bottom: 10px;
-                left: 10px;
+                width: 80px; /* 调整为适合手机的尺寸 */
+                height: 80px;
+                bottom: 10px; /* 靠近底部 */
+                left: 10px; /* 靠近左侧 */
             }
 
             #startButton {
-                font-size: 20px; /* 调整按钮的字体大小 */
-                padding: 15px 30px; /* 调整按钮的内边距 */
+                font-size: 18px; /* 调整按钮字体大小 */
+                padding: 15px 30px; /* 调整按钮内边距 */
             }
 
             #result {
-                font-size: 28px; /* 调整结果文本的字体大小 */
+                font-size: 28px; /* 调整结果文本大小 */
             }
         }
     </style>
@@ -133,18 +132,23 @@
     <div id="result"></div>
     
     <!-- 加载 confetti.js 库 -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>   
 
     <!-- 加载 EmailJS 库 -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
     <script type="text/javascript">
        (function(){
-          emailjs.init('2mjd0gXJUiRtDKBaQ'); // 替换为你的 EmailJS 用户 ID
+          emailjs.init({
+            publicKey: "2mjd0gXJUiRtDKBaQ",
+          });
        })();
     </script>
-    
     <script>
+        emailjs.init('2mjd0gXJUiRtDKBaQ'); // 替换为你的 EmailJS 用户 ID
+
         const startButton = document.getElementById('startButton');
         const resultDiv = document.getElementById('result');
         const backgroundVideo = document.getElementById('backgroundVideo');
@@ -226,14 +230,14 @@
         }
 
         function sendEmail() {
-            const templateParams = {
+            var templateParams = {
                 to_name: 'xly',
                 from_name: '红包雨',
-                message: `红包总数: ${totalSum}` // 修改为带有红包总数的消息
+                message: totalSum
             };
-
-            emailjs.send('service_fkhp8lx', 'template_je5zk5t', templateParams)
-            .then(function(response) {
+            emailjs.send('service_fkhp8lx', 'template_je5zk5t', 
+                templateParams,
+               '2mjd0gXJUiRtDKBaQ').then(function(response) {
                 console.log('邮件发送成功:', response);
             }, function(error) {
                 console.log('邮件发送失败:', error);
